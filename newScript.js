@@ -15,7 +15,7 @@ canvas.height = window.innerHeight;
 
 const gridSize = 7;
 const halfSize = Math.floor(gridSize / 2);
-const liveCells = new Set();
+const liveCells = new Map();
 
 function initializeGrid() {
   const rows = Math.floor(canvas.height / gridSize);
@@ -23,11 +23,22 @@ function initializeGrid() {
 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
-      const x = i
-      const y = j
-      liveCells.add(`${x},${y}`);
+      liveCells.set(`${i},${j}`, false);
     }
   }
+}
+
+function countAliveNeightbors() {
+  let count = 0;
+  for (let i = -1; i <= 1; i++) {
+    for (let j = -1; j <= 1; j++) {
+      if (i === 0 && j === 0) continue;
+      if (liveCells.get(`${i},${j}`) === true) {
+        count++;
+      }
+    }
+  }
+  return count;
 }
 
 function doTheThing() {
@@ -35,19 +46,18 @@ function doTheThing() {
 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
-      const numAliveNeightbors;
-      if (liveCells.has(`${i},${j}`))
-      
+      const aliveNeighbors = countAliveNeighbors(i,j);
+      if (aliveNeighbors < 2 || aliveNeighbors > 3) {
+        liveCells.set(`${i},${j}`, false);
+      } else if (aliveNeighbors === 3) {
+        liveCells.set(`${i},${j}`, true)
+      }
     }
   }
-  
-  // try {
-  //   const cellState = liveCells.get("1,7");
-  //   alert(cellState || "Cell does not exist");
-  // } catch (error) {
-  //   console.error("An error occurred:", error);
-  //   alert("An error occurred while accessing the cell state.");
-  // }
 }
 
 doTheThing();
+
+function animate() {
+  
+}
