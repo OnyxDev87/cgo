@@ -16,10 +16,11 @@ canvas.height = window.innerHeight;
 const gridSize = 7;
 const halfSize = Math.floor(gridSize / 2);
 const liveCells = new Map();
+const bgcolor = "white"
+const rows = Math.floor(canvas.height / gridSize);
+const columns = Math.floor(canvas.width / gridSize);
 
 function initializeGrid() {
-  const rows = Math.floor(canvas.height / gridSize);
-  const columns = Math.floor(canvas.width / gridSize);
 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
@@ -34,6 +35,7 @@ function countAliveNeightbors() {
     for (let j = -1; j <= 1; j++) {
       if (i === 0 && j === 0) continue;
       if (liveCells.get(`${i},${j}`) === true) {
+        alert('d')
         count++;
       }
     }
@@ -41,23 +43,38 @@ function countAliveNeightbors() {
   return count;
 }
 
-function doTheThing() {
-  initializeGrid();
+initializeGrid();
 
+function doTheThing() {
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
-      const aliveNeighbors = countAliveNeighbors(i,j);
+      const aliveNeighbors = countAliveNeightbors(i,j);
+      //alert("counted alive cells")
       if (aliveNeighbors < 2 || aliveNeighbors > 3) {
         liveCells.set(`${i},${j}`, false);
       } else if (aliveNeighbors === 3) {
         liveCells.set(`${i},${j}`, true)
       }
+      if (liveCells.has(`${i},${j}`)) {
+        c.fillStyle = "black"
+        c.fillRect(i*gridSize, j*gridSize, gridSize, gridSize)
+      }
     }
   }
 }
 
-doTheThing();
-
 function animate() {
-  
+  animationId = requestAnimationFrame(animate)
+  c.fillStyle = bgcolor
+  c.fillRect(0, 0, canvas.width, canvas.height)
+  doTheThing();
+  alert("the thing is done")
 }
+
+liveCells.set(`${10},${10}`, true);
+liveCells.set(`${10},${11}`, true);
+liveCells.set(`${10},${12}`, true);
+liveCells.set(`${11},${12}`, true);
+liveCells.set(`${12},${11}`, true);
+
+animate();
