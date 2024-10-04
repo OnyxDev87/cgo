@@ -33,6 +33,7 @@ function countAliveNeightbors() {
   let count = 0;
   for (let i = -1; i <= 1; i++) {
     for (let j = -1; j <= 1; j++) {
+      alert(liveCells.get(`${i},${j}`))
       if (i === 0 && j === 0) continue;
       if (liveCells.get(`${i},${j}`) === true) {
         alert('d')
@@ -58,6 +59,7 @@ function doTheThing() {
       if (liveCells.has(`${i},${j}`)) {
         c.fillStyle = "black"
         c.fillRect(i*gridSize, j*gridSize, gridSize, gridSize)
+        alert("drawn")
       }
     }
   }
@@ -68,7 +70,7 @@ function animate() {
   c.fillStyle = bgcolor
   c.fillRect(0, 0, canvas.width, canvas.height)
   doTheThing();
-  alert("the thing is done")
+  alert(liveCells.length())
 }
 
 liveCells.set(`${10},${10}`, true);
