@@ -1,3 +1,3 @@
-[newScript.js](index.html)
+[newScript.js](https://awilh37.github.io/cgo/index.html) NOT WORKING
 
-[script.js](old_index.html) REALLY LAGGY
+[script.js](https://awilh37.github.io/cgo/old_index.html) REALLY LAGGY
