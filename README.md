@@ -1,1 +1,3 @@
-This is here because github pages said I needed it
+[newScript.js](index.html)
+
+[script.js](old_index.html)
